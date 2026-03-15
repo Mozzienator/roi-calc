@@ -1,28 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROI Calculator</title>
-</head>
-<body>
-    <h1>ROI Calculator</h1>
-    <label for="investment">Total Investment:</label>
-    <input type="number" id="investment" placeholder="Enter total investment">
-    <br>
-    <label for="return">Total Return:</label>
-    <input type="number" id="return" placeholder="Enter total return">
-    <br>
-    <button onclick="calculateROI()">Calculate ROI</button>
-    <h2 id="result"></h2>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polymarket ROI Calculator</title>
 
-    <script>
-        function calculateROI() {
-            var investment = document.getElementById('investment').value;
-            var totalReturn = document.getElementById('return').value;
-            var roi = ((totalReturn - investment) / investment) * 100;
-            document.getElementById('result').innerText = 'ROI: ' + roi.toFixed(2) + '%';
-        }
-    </script>
+<style>
+body{
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+input{
+font-size:18px;
+padding:8px;
+margin:10px;
+width:140px;
+}
+
+button{
+font-size:18px;
+padding:10px 20px;
+}
+
+.result{
+margin-top:20px;
+font-size:22px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Polymarket → PointsBet ROI</h2>
+
+<p>Polymarket YES price</p>
+<input id="poly" type="number" step="0.01">
+
+<p>PointsBet decimal odds</p>
+<input id="odds" type="number" step="0.01">
+
+<br>
+<button onclick="calc()">Calculate</button>
+
+<div class="result" id="output"></div>
+
+<script>
+
+function calc(){
+
+let poly = parseFloat(document.getElementById("poly").value);
+let odds = parseFloat(document.getElementById("odds").value);
+
+let prob = 1 - poly;
+let profit = odds - 1;
+
+let EV = prob * profit - (1 - prob);
+let ROI = EV * 100;
+
+document.getElementById("output").innerHTML =
+"Polymarket implied probability: " + (prob*100).toFixed(1) + "%<br><br>" +
+"Expected profit per $1: $" + EV.toFixed(3) + "<br><br>" +
+"Projected ROI: " + ROI.toFixed(1) + "%";
+
+}
+
+</script>
+
 </body>
 </html>
