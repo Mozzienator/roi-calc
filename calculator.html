@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator</title>
+</head>
+<body>
+    <h1>ROI Calculator</h1>
+    <label for="investment">Total Investment:</label>
+    <input type="number" id="investment" placeholder="Enter total investment">
+    <br>
+    <label for="return">Total Return:</label>
+    <input type="number" id="return" placeholder="Enter total return">
+    <br>
+    <button onclick="calculateROI()">Calculate ROI</button>
+    <h2 id="result"></h2>
+
+    <script>
+        function calculateROI() {
+            var investment = document.getElementById('investment').value;
+            var totalReturn = document.getElementById('return').value;
+            var roi = ((totalReturn - investment) / investment) * 100;
+            document.getElementById('result').innerText = 'ROI: ' + roi.toFixed(2) + '%';
+        }
+    </script>
+</body>
+</html>
